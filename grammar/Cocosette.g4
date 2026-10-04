@@ -4,7 +4,7 @@ grammar Cocosette;
 // NOMBRE DE LA GRAMÁTICA
 // ================================================================
 // Este archivo se llama Cocosette.
-// Aquí escribimos las reglas que nuestro lenguaje va a reconocer.
+// Reglas que el lenguaje va a reconocer.
 
 
 // ================================================================
@@ -58,6 +58,7 @@ programa
 sentencia
     : asignacion ';'
     | cocoGraficar ';'
+    | cocoGuardarCSV ';'
     ;
 
 
@@ -110,6 +111,27 @@ cargaCSV
     ;
 
 
+// CORTE II
+// -------------------------
+// REGLA: cocoGuardarCSV
+// -------------------------
+// Exporta una tabla a un archivo CSV. Es una sentencia de nivel
+// de programa (no una operacion de pipeline), porque no produce
+// una tabla nueva: simplemente escribe la que ya existe.
+//
+// Ejemplo:
+// guardar resumen como "salidas/resumen_ciudades.csv"
+//
+// Nota: reutiliza los mismos tokens COCOGUARDAR y COMO
+// que ya usa cocoGraficar para su clausula "guardar como" opcional
+// (que exporta PNG). No hay ambiguedad entre las dos porque el
+// primer token de la sentencia decide cual regla aplica:
+// COCOGRAFICAR para una grafica, COCOGUARDAR para esta.
+cocoGuardarCSV
+    : COCOGUARDAR ID COMO STRING
+    ;
+
+
 // -------------------------
 // REGLA: operacion
 // -------------------------
@@ -121,6 +143,141 @@ cargaCSV
 operacion
     : cocoSeleccion
     | cocoFiltro
+    | cocoCrear
+    | cocoOrdenar
+    | cocoRenombrar
+    | cocoEliminarDuplicados
+    | cocoTratarNulos
+    | cocoConvertir
+    | cocoAgrupar
+    | cocoResumir
+    ;
+
+
+// CORTE II
+// -------------------------
+// REGLA: cocoCrear 
+// -------------------------
+// Crea una columna calculada a partir de una expresión.
+//
+// Ejemplo:
+// crear total = unidades * precio
+cocoCrear
+    : COCOCREAR ID '=' expresion
+    ;
+
+
+// CORTE II
+// -------------------------
+// REGLA: cocoOrdenar 
+// -------------------------
+// Ordena las filas por una columna. asc/desc es opcional
+// (por defecto se asume ascendente).
+//
+// Ejemplo:
+// ordenar por precio desc
+cocoOrdenar
+    : COCOORDENAR COCOPOR ID ( COCOASC | COCODESC )?
+    ;
+
+
+// CORTE II
+// -------------------------
+// REGLA: cocoRenombrar
+// -------------------------
+// Cambia el nombre de una columna.
+//
+// Ejemplo:
+// renombrar precio como precio_unitario
+cocoRenombrar
+    : COCORENOMBRAR ID COMO ID
+    ;
+
+
+// CORTE II
+// -------------------------
+// REGLA: cocoEliminarDuplicados
+// -------------------------
+// Elimina filas repetidas. No necesita argumentos.
+cocoEliminarDuplicados
+    : COCOELIMINARDUP
+    ;
+
+
+// CORTE II
+// -------------------------
+// REGLA: cocoNulos
+// -------------------------
+// Dos formas de tratar valores faltantes:
+// 1. eliminar_nulos             -> elimina filas con algún nulo
+// 2. rellenar_nulos col con expr -> reemplaza los nulos de esa columna
+cocoNulos
+    : COCOELIMINARNULL
+    | COCORELLENARNULL ID COCOCON expresion
+    ;
+
+
+// CORTE II
+// -------------------------
+// REGLA: cocoConvertir
+// -------------------------
+// Convierte el tipo de una columna.
+//
+// Ejemplo:
+// convertir unidades a entero
+cocoConvertir
+    : COCOCONVERTIR ID COCOA tipoDato
+    ;
+
+tipoDato
+    : COCOENTERO
+    | COCODECIMAL
+    | COCOTEXTO
+    | COCOBOOLEANO
+    ;
+
+
+// CORTE II
+// -------------------------
+// REGLA: cocoAgrupar
+// -------------------------
+// Agrupa filas por una o varias columnas. Por sí sola no produce
+// un resultado visible; siempre va seguida de resumir en el mismo
+// pipeline.
+//
+// Ejemplo:
+// agrupar por [ciudad]
+cocoAgrupar
+    : COCOAGRUPAR COCOPOR '[' listaCocolumnas ']'
+    ;
+
+
+// CORTE II
+// -------------------------
+// REGLA: cocoResumir
+// -------------------------
+// Calcula una o más agregaciones sobre los grupos formados por
+// cocoAgrupar. Cada agregación se asigna a un nombre de columna
+// nueva.
+//
+// Ejemplo:
+// resumir ingreso = suma(total), promedio = media(total), registros = contar()
+cocoResumir
+    : COCORESUMIR asignacionAgregada ( ',' asignacionAgregada )*
+    ;
+
+asignacionAgregada
+    : ID '=' funcionAgregacion '(' ID? ')'
+    ;
+
+funcionAgregacion
+    : COCOSUMA
+    | COCOMEDIA
+    | COCOMEDIANA
+    | COCOMINIMO
+    | COCOMAXIMO
+    | COCODESVIACIONEST
+    | COCOCONTAR
     ;
 
 
@@ -300,22 +457,49 @@ literal
 //
 // Estas reglas están antes de ID para que palabras como "cargar"
 // no sean confundidas con nombres de variables.
-COCOCARGAR      : 'cargar';
-COCOSELECCIONAR : 'seleccionar';
-COCOFILTRAR     : 'filtrar';
-COCODONDE       : 'donde';
-COCOGRAFICAR    : 'graficar';
-COCOTITULO      : 'titulo';
-COCOGUARDAR     : 'guardar';
-COMO            : 'como';
-COCOBARRAS      : 'barras';
-COCOLINEAS      : 'lineas';
-COCOHISTOGRAMA  : 'histograma';
-COCODISPERSION  : 'dispersion';
-COCOCAJA        : 'caja';
-EJE_X           : 'x';
-EJE_Y           : 'y';
-COCOBOOLEANO    : 'verdadero' | 'falso';
+COCOCARGAR        : 'cargar';
+COCOSELECCIONAR   : 'seleccionar';
+COCOFILTRAR       : 'filtrar';
+COCODONDE         : 'donde';
+COCOGRAFICAR      : 'graficar';
+COCOTITULO        : 'titulo';
+COCOGUARDAR       : 'guardar';
+COMO              : 'como';
+COCOBARRAS        : 'barras';
+COCOLINEAS        : 'lineas';
+COCOHISTOGRAMA    : 'histograma';
+COCODISPERSION    : 'dispersion';
+COCOCAJA          : 'caja';
+EJE_X             : 'x';
+EJE_Y             : 'y';
+COCOBOOLEANO      : 'verdadero' | 'falso';
+// CORTE II
+COCOCREAR         : 'crear';
+COCOORDENAR       : 'ordenar';
+COCOPOR           : 'por';
+COCOORDENARASC    : 'ascendiente';
+COCOORDENARDESC   : 'descendiente';
+COCORENOMBRAR     : 'renombrar';
+COCOELIMINARDUP   : 'eliminar_duplicados';
+COCOELIMINARNULL  : 'eliminar_nulos';
+COCORELLENARNULL  : 'rellenar_nulos';
+CON               : 'con';
+COCOCONVERTIR     : 'convertir';
+COCOA             : 'a';
+COCOENTERO        : 'entero';
+COCODECIMAL       : 'decimal';
+COCOTEXTO         : 'texto';
+COCOAGRUPAR       : 'agrupar';
+COCORESUMIR       : 'resumir';
+COCOSUMA          : 'suma';
+COCOMEDIA         : 'media';
+COCOMEDIANA       : 'mediana';
+COCOMINIMO        : 'minimo';
+COCOMAXIMO        : 'maximo';
+COCODESVIACIONEST : 'desviacion_estandar';
+COCOCONTAR        : 'contar';
+
+
 
 
 // -------------------------
