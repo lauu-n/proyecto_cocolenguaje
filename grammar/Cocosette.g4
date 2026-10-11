@@ -1,5 +1,6 @@
 grammar Cocosette;
 
+
 // ================================================================
 // NOMBRE DE LA GRAMÁTICA
 // ================================================================
@@ -147,7 +148,7 @@ operacion
     | cocoOrdenar
     | cocoRenombrar
     | cocoEliminarDuplicados
-    | cocoTratarNulos
+    | cocoNulos
     | cocoConvertir
     | cocoAgrupar
     | cocoResumir
@@ -177,7 +178,7 @@ cocoCrear
 // Ejemplo:
 // ordenar por precio desc
 cocoOrdenar
-    : COCOORDENAR COCOPOR ID ( COCOASC | COCODESC )?
+    : COCOORDENAR COCOPOR ID ( COCOORDENARASC | COCOORDENARDESC )?
     ;
 
 
@@ -213,7 +214,7 @@ cocoEliminarDuplicados
 // 2. rellenar_nulos col con expr -> reemplaza los nulos de esa columna
 cocoNulos
     : COCOELIMINARNULL
-    | COCORELLENARNULL ID COCOCON expresion
+    | COCORELLENARNULL ID CON expresion
     ;
 
 
@@ -498,8 +499,6 @@ COCOMINIMO        : 'minimo';
 COCOMAXIMO        : 'maximo';
 COCODESVIACIONEST : 'desviacion_estandar';
 COCOCONTAR        : 'contar';
-
-
 
 
 // -------------------------
