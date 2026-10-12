@@ -1,0 +1,4 @@
+# Error semantico: la columna 'ingreso' no existe en ventas.csv
+ventas = cargar "datos/ventas.csv";
+solo = ventas
+    |> seleccionar [ciudad, ingreso];

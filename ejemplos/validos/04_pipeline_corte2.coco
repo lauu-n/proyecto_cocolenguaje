@@ -1,0 +1,19 @@
+# Corte 2: pipeline completo con las instrucciones nuevas
+
+ventas = cargar "datos/ventas.csv";
+
+ventas_procesadas = ventas
+    |> seleccionar [fecha, ciudad, categoria, unidades, precio]
+    |> filtrar donde unidades > 0 && precio > 0
+    |> crear total = unidades * precio
+    |> eliminar_nulos
+    |> convertir unidades como entero
+    |> renombrar precio como precio_unitario
+    |> eliminar_duplicados
+    |> ordenar por total descendiente;
+
+resumen = ventas_procesadas
+    |> agrupar por [ciudad]
+    |> resumir ingreso = suma(total), promedio = media(total), registros = contar();
+
+guardar resumen como "salidas/resumen_ciudades.csv";

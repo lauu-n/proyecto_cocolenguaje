@@ -1,0 +1,5 @@
+# Error semantico: no se puede sumar una columna de texto
+ventas = cargar "datos/ventas.csv";
+resumen = ventas
+    |> agrupar por [ciudad]
+    |> resumir total = suma(categoria);

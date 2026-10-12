@@ -1,0 +1,8 @@
+# Ejemplo 1: carga de datos y pipeline de seleccion y filtrado
+# Caso de estudio: ventas
+
+ventas = cargar "datos/ventas.csv";
+
+ventas_filtradas = ventas
+    |> seleccionar [fecha, ciudad, categoria, unidades, precio]
+    |> filtrar donde unidades > 0 && precio > 0;

@@ -1,0 +1,2 @@
+# Error lexico esperado: la cadena de texto no tiene comilla de cierre
+ventas = cargar "datos/ventas.csv;

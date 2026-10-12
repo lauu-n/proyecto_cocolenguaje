@@ -1,0 +1,15 @@
+# Programa 1: indicadores de ventas por ciudad (agrupar, resumir, ordenar, exportar)
+
+ventas = cargar "datos/ventas.csv";
+
+con_total = ventas
+    |> crear total = unidades * precio;
+
+por_ciudad = con_total
+    |> agrupar por [ciudad]
+    |> resumir ingreso = suma(total), promedio = media(total), registros = contar();
+
+ranking = por_ciudad
+    |> ordenar por ingreso descendiente;
+
+guardar ranking como "salidas/ventas_por_ciudad.csv";

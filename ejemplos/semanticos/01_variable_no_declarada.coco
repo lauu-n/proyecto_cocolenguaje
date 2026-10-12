@@ -1,0 +1,3 @@
+# Error semantico: 'inventario' nunca fue declarada
+resultado = inventario
+    |> seleccionar [ciudad];

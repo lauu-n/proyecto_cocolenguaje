@@ -1,0 +1,17 @@
+# Ejemplo 3: pipeline de preparacion + reconocimiento sintactico de graficas
+# En el Corte 1 solo se valida la sintaxis; la grafica no se genera todavia.
+
+ventas = cargar "datos/ventas.csv";
+
+resumen = ventas
+    |> seleccionar [ciudad, unidades, precio];
+
+graficar barras resumen
+    x ciudad
+    y precio
+    titulo "Precio por ciudad"
+    guardar como "salidas/precio_ciudad.png";
+
+graficar dispersion resumen
+    x unidades
+    y precio;

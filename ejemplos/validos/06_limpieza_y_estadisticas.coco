@@ -1,0 +1,21 @@
+# Programa 2: limpieza de datos faltantes/duplicados y estadisticas descriptivas
+# (datos/ventas_sucias.csv usa ';' como separador y encabezados con tildes y espacios;
+#  al cargar, 'Precio Unitario' pasa a llamarse precio_unitario)
+
+sucias = cargar "datos/ventas_sucias.csv";
+
+limpias = sucias
+    |> eliminar_duplicados
+    |> rellenar_nulos unidades con 1
+    |> eliminar_nulos
+    |> convertir unidades como entero
+    |> crear total = unidades * precio_unitario
+    |> ordenar por fecha ascendiente;
+
+estadisticas = limpias
+    |> resumir filas = contar(), ventas_totales = suma(total), promedio = media(total),
+               mediana_total = mediana(total), minimo_total = minimo(total),
+               maximo_total = maximo(total), desviacion = desviacion_estandar(total);
+
+guardar limpias como "salidas/ventas_limpias.csv";
+guardar estadisticas como "salidas/estadisticas_ventas.csv";

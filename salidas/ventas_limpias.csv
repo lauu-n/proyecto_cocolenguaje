@@ -1,0 +1,12 @@
+fecha,ciudad,categoria,unidades,precio_unitario,total
+2026-02-01,Bogota,Electronica,3,150000,450000
+2026-02-02,Medellin,Hogar,5,45000,225000
+2026-02-03,Cali,Ropa,1,60000,60000
+2026-02-05,Barranquilla,Electronica,1,890000,890000
+2026-02-06,Cali,Electronica,4,320000,1280000
+2026-02-07,Bogota,Ropa,10,60000,600000
+2026-02-08,Medellin,Electronica,2,210000,420000
+2026-02-09,Cali,Hogar,3,75000,225000
+2026-02-10,Bogota,Electronica,3,150000,450000
+2026-02-11,Barranquilla,Ropa,7,55000,385000
+2026-02-12,Medellin,Ropa,1,48000,48000

@@ -1,0 +1,4 @@
+# Error semantico: 'agrupar' debe ir seguido de 'resumir'
+ventas = cargar "datos/ventas.csv";
+grupos = ventas
+    |> agrupar por [ciudad];

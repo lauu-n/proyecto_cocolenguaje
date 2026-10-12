@@ -1,0 +1,25 @@
+# Entornos y cache de Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Codigo generado por ANTLR (se regenera con "make generar")
+src/parser/*.py
+src/parser/*.interp
+src/parser/*.tokens
+!src/parser/__init__.py
+
+# Por si alguien genera el parser dentro de grammar/ (no debe versionarse)
+grammar/*.py
+grammar/*.interp
+grammar/*.tokens
+.pytest_cache/
+
+# Graficas de fases futuras (los CSV de salidas/ SI se versionan: son la evidencia del Corte 2)
+salidas/*.png
+
+# Sistema operativo / editores
+.DS_Store
+.vscode/
+.idea/

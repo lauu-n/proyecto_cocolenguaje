@@ -1,0 +1,4 @@
+# Error sintactico esperado: falta el ';' al final de cada sentencia
+ventas = cargar "datos/ventas.csv"
+
+resumen = ventas |> seleccionar [ciudad, precio]

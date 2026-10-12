@@ -1,0 +1,4 @@
+# Error sintactico esperado: "x" y "y" son palabras reservadas
+# (usadas en la instruccion "graficar") y no pueden usarse como identificadores
+x = 10;
+y = 20;

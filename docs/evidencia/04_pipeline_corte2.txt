@@ -1,0 +1,31 @@
+ANTLR runtime and generated code versions disagree: 4.12.0!=4.13.2
+ANTLR runtime and generated code versions disagree: 4.12.0!=4.13.2
+[OK] ejemplos/validos/04_pipeline_corte2.coco
+
+ventas  (15 filas)
+fecha      | ciudad       | categoria   | unidades | precio
+-----------+--------------+-------------+----------+-------
+2026-01-05 | Bogota       | Electronica | 3        | 150000
+2026-01-06 | Medellin     | Hogar       | 5        | 45000 
+2026-01-07 | Cali         | Electronica | 2        | 320000
+2026-01-08 | Bogota       | Ropa        | 10       | 60000 
+2026-01-09 | Barranquilla | Hogar       | 4        | 75000 
+... (15 filas en total)
+
+ventas_procesadas  (15 filas)
+fecha      | ciudad       | categoria   | unidades | precio_unitario | total 
+-----------+--------------+-------------+----------+-----------------+-------
+2026-01-18 | Medellin     | Electronica | 4        | 240000          | 960000
+2026-01-10 | Medellin     | Electronica | 1        | 890000          | 890000
+2026-01-07 | Cali         | Electronica | 2        | 320000          | 640000
+2026-01-13 | Barranquilla | Electronica | 3        | 210000          | 630000
+2026-01-08 | Bogota       | Ropa        | 10       | 60000           | 600000
+... (15 filas en total)
+
+resumen  (4 filas)
+ciudad       | ingreso | promedio  | registros
+-------------+---------+-----------+----------
+Medellin     | 2379000 | 594750.00 | 4        
+Cali         | 1342000 | 447333.33 | 3        
+Barranquilla | 1270000 | 423333.33 | 3        
+Bogota       | 2097000 | 419400.00 | 5        

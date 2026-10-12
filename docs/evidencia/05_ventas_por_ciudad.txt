@@ -1,0 +1,39 @@
+ANTLR runtime and generated code versions disagree: 4.12.0!=4.13.2
+ANTLR runtime and generated code versions disagree: 4.12.0!=4.13.2
+[OK] ejemplos/validos/05_ventas_por_ciudad.coco
+
+ventas  (15 filas)
+fecha      | ciudad       | categoria   | unidades | precio
+-----------+--------------+-------------+----------+-------
+2026-01-05 | Bogota       | Electronica | 3        | 150000
+2026-01-06 | Medellin     | Hogar       | 5        | 45000 
+2026-01-07 | Cali         | Electronica | 2        | 320000
+2026-01-08 | Bogota       | Ropa        | 10       | 60000 
+2026-01-09 | Barranquilla | Hogar       | 4        | 75000 
+... (15 filas en total)
+
+con_total  (15 filas)
+fecha      | ciudad       | categoria   | unidades | precio | total 
+-----------+--------------+-------------+----------+--------+-------
+2026-01-05 | Bogota       | Electronica | 3        | 150000 | 450000
+2026-01-06 | Medellin     | Hogar       | 5        | 45000  | 225000
+2026-01-07 | Cali         | Electronica | 2        | 320000 | 640000
+2026-01-08 | Bogota       | Ropa        | 10       | 60000  | 600000
+2026-01-09 | Barranquilla | Hogar       | 4        | 75000  | 300000
+... (15 filas en total)
+
+por_ciudad  (4 filas)
+ciudad       | ingreso | promedio  | registros
+-------------+---------+-----------+----------
+Bogota       | 2097000 | 419400.00 | 5        
+Medellin     | 2379000 | 594750.00 | 4        
+Cali         | 1342000 | 447333.33 | 3        
+Barranquilla | 1270000 | 423333.33 | 3        
+
+ranking  (4 filas)
+ciudad       | ingreso | promedio  | registros
+-------------+---------+-----------+----------
+Medellin     | 2379000 | 594750.00 | 4        
+Bogota       | 2097000 | 419400.00 | 5        
+Cali         | 1342000 | 447333.33 | 3        
+Barranquilla | 1270000 | 423333.33 | 3        

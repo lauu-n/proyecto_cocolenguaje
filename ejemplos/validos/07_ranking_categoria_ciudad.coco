@@ -1,0 +1,15 @@
+# Programa 3: filtro compuesto, agrupacion por dos columnas, renombrar y exportar
+
+ventas = cargar "datos/ventas.csv";
+
+relevantes = ventas
+    |> filtrar donde unidades * precio >= 500000 || categoria == "Electronica"
+    |> crear total = unidades * precio;
+
+ranking = relevantes
+    |> agrupar por [categoria, ciudad]
+    |> resumir unidades_vendidas = suma(unidades), ingreso = suma(total), maxima_venta = maximo(total)
+    |> renombrar ingreso como ingreso_total
+    |> ordenar por ingreso_total descendiente;
+
+guardar ranking como "salidas/ingreso_categoria_ciudad.csv";

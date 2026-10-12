@@ -1,0 +1,28 @@
+ANTLR runtime and generated code versions disagree: 4.12.0!=4.13.2
+ANTLR runtime and generated code versions disagree: 4.12.0!=4.13.2
+[OK] ejemplos/validos/06_limpieza_y_estadisticas.coco
+
+sucias  (14 filas)
+fecha      | ciudad   | categoria   | unidades | precio_unitario
+-----------+----------+-------------+----------+----------------
+2026-02-01 | Bogota   | Electronica | 3        | 150000         
+2026-02-02 | Medellin | Hogar       | 5        | 45000          
+2026-02-02 | Medellin | Hogar       | 5        | 45000          
+2026-02-03 | Cali     | Ropa        |          | 60000          
+2026-02-04 | Bogota   | Hogar       | 2        |                
+... (14 filas en total)
+
+limpias  (11 filas)
+fecha      | ciudad       | categoria   | unidades | precio_unitario | total  
+-----------+--------------+-------------+----------+-----------------+--------
+2026-02-01 | Bogota       | Electronica | 3        | 150000          | 450000 
+2026-02-02 | Medellin     | Hogar       | 5        | 45000           | 225000 
+2026-02-03 | Cali         | Ropa        | 1        | 60000           | 60000  
+2026-02-05 | Barranquilla | Electronica | 1        | 890000          | 890000 
+2026-02-06 | Cali         | Electronica | 4        | 320000          | 1280000
+... (11 filas en total)
+
+estadisticas  (1 filas)
+filas | ventas_totales | promedio  | mediana_total | minimo_total | maximo_total | desviacion
+------+----------------+-----------+---------------+--------------+--------------+-----------
+11    | 5033000        | 457545.45 | 420000        | 48000        | 1280000      | 346993.94 
